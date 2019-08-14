@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>请求错误</title>
+</head>
+<body>
+	
+	<div style="margin-left:30%;margin-top:10%;">
+		<p>请求发生错误！！！！</p>
+		<p id="errorCode"></p>
+		<p >公司网址: <a href="http://yizhongbbq.com">yizhongbbq.com</a>  </p>
+		<p >公司网址:<a href="http://www.yizhongbbq.com">www.yizhongbbq.com</a> </p>
+	</div>
+</body>
+<script>
+	var searchStr = location.search
+	searchStr = searchStr.substr(1)
+	document.getElementById("errorCode").innerHTML =  searchStr
+</script>
+
+</html>
+
