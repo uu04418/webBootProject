@@ -2,13 +2,10 @@ package com.bootproject.sklweb.filter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bootproject.sklweb.common.CheckDataUtil;
-import com.bootproject.sklweb.entity.User;
-import com.bootproject.sklweb.service.UserService;
 
 
 /**
@@ -18,8 +15,6 @@ import com.bootproject.sklweb.service.UserService;
  */
 public class CommonInterceptor implements HandlerInterceptor {
 	
-	@Autowired
-	UserService userService;
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -37,20 +32,19 @@ public class CommonInterceptor implements HandlerInterceptor {
 			if (CheckDataUtil.checkisEmpty(acctoken))  throw new  AcctokenNotExistException() ;
 			
 			//通过acctoen获取用户信息 用户信息必须存在
-			User user  =  userService.getUserByAccToken(acctoken);
-			if (CheckDataUtil.checkisEmpty(user))  throw new  UserNotExistException() ;
+			//if (CheckDataUtil.checkisEmpty(user))  throw new  UserNotExistException() ;
 			
 			//账号被冻结
-			if (user.getState() != 1)  throw new  UserFrozenException() ;
+			//if (user.getState() != 1)  throw new  UserFrozenException() ;
 			
 			//如果带有管理员
-			if(currentUrl.contains("admin") || currentUrl.contains("supporter")) {
+			/*if(currentUrl.contains("admin") || currentUrl.contains("supporter")) {
 				//非后台账户
 				if(user.getType() == 0)    throw new  SupporterNotAllowException() ;
 				//需要管理员权限
 				if (currentUrl.contains("admin") && user.getType() != 2  ) 
 					throw new  AdminUserAllowException() ;
-			}
+			}*/
 			
 			return true ;
 			

@@ -21,6 +21,7 @@ import com.qiniu.util.StringMap;
  * @date  2019年8月1日  下午6:31:51
  */
 
+@SuppressWarnings("deprecation")
 @RestController
 @RequestMapping("/upload")
 public class UploadController {

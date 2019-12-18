@@ -2,50 +2,45 @@ package com.bootproject.sklweb.entity;
 
 import java.util.Date;
 
+
+/**
+ * @Description 后台账户管理 userid : 登陆账户   | 此块操作针对管理员开发
+ * @author  uu04418
+ * @date  2019年12月18日  上午10:15:14
+ */
 public class User {
     /** 用户主键*/
-    private Long userId;
-
-    /** 登陆账号*/
-    private String userName;
+    private Long userid;
 
     /** 登陆密码*/
-    private String passWord;
+    private String password;
 
     /** 安全码*/
     private String acctoken;
 
-    /** 用户类型 0-表示普通用户 1-管理员用户*/
-    private Integer type;
+    /** 0-超级管理 1-普通用户*/
+    private String type;
 
-    /** 用户状态 0-冻结 1-正常*/
-    private Integer state;
+    /** 0-正常 1-冻结*/
+    private String state;
 
     /** 用户创建时间*/
-    private Date createTime;
+    private Date createtime;
 
-    public Long getUserId() {
-        return userId;
+    public Long getUserid() {
+        return userid;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserid(Long userid) {
+        this.userid = userid;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
-
-    public String getPassWord() {
-        return passWord;
-    }
-
-    public void setPassWord(String passWord) {
-        this.passWord = passWord == null ? null : passWord.trim();
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
     public String getAcctoken() {
@@ -56,27 +51,27 @@ public class User {
         this.acctoken = acctoken == null ? null : acctoken.trim();
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 
-    public Integer getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setState(String state) {
+        this.state = state == null ? null : state.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreatetime() {
+        return createtime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
     }
 }
