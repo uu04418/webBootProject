@@ -2,18 +2,12 @@ package com.bootproject.sklweb.entity;
 
 import java.util.Date;
 
-
-/**
- * @Description 产品详情 
- * @author  uu04418
- * @date  2019年12月18日  上午10:14:28
- */
 public class Product {
     /** 产品主键*/
     private Long id;
 
     /** 发布人id*/
-    private Long userid;
+    private String userid;
 
     /** 产品类别id*/
     private Long categoryid;
@@ -56,12 +50,12 @@ public class Product {
         this.id = id;
     }
 
-    public Long getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
+    public void setUserid(String userid) {
+        this.userid = userid == null ? null : userid.trim();
     }
 
     public Long getCategoryid() {

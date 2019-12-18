@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bootproject.sklweb.mapper.MyCustomerMapper" >
+  
+  	
+  	
+  	<select id="getUserListCount" resultType="integer">
+  			SELECT COUNT(1) from `user`
+  	</select>
+  	
+  	<select id="getUserList" resultType="com.bootproject.sklweb.entity.User">
+  		SELECT
+			`user`.userid ,
+			`user`.type ,
+			`user`.createtime ,
+			`user`.state
+		FROM
+			`user`
+  		<if test="query !=null ">
+			limit #{query.pagestart} , #{query.pagesize}
+		</if>
+  	</select>
+  
+  
+</mapper>

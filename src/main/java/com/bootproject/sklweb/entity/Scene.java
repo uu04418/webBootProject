@@ -1,10 +1,5 @@
 package com.bootproject.sklweb.entity;
 
-/**
- * @Description 产品适用场合
- * @author  uu04418
- * @date  2019年12月18日  上午10:14:43
- */
 public class Scene {
     /** */
     private Integer id;

@@ -1,6 +1,7 @@
 package com.bootproject.sklweb.common;
 
 import java.util.Random;
+import java.util.UUID;
 
 import org.springframework.util.DigestUtils;
 
@@ -38,8 +39,17 @@ public class HandleData {
 	*
 	 */
 	public static String digestMD5Word(String word) {
+		
+		if (CheckDataUtil.checkisEmpty(word))
+			return "" ;
+		
 		String md5Password = DigestUtils.md5DigestAsHex(word.getBytes());
 		return md5Password ;
+	}
+	 
+	public static String getNewToken () {
+		
+		return UUID.randomUUID().toString() ;
 	}
 	
 	

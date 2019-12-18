@@ -19,6 +19,10 @@ public class APIResponse implements Serializable {
 
 	// 响应中的数据
 	private Object object;
+	
+	private Integer totalpage ;
+	
+	
 
 	public static APIResponse build(Integer code, String message, Object object) {
 		return new APIResponse(code, message, object);
@@ -27,6 +31,11 @@ public class APIResponse implements Serializable {
 	public static APIResponse offResult(Object object) {
 		return new APIResponse(object);
 	}
+	
+
+	public static APIResponse offResult(Object object , Integer totalpage) {
+		return new APIResponse(object ,totalpage);
+	}
 
 	public static APIResponse offResult() {
 		return new APIResponse(null);
@@ -34,14 +43,13 @@ public class APIResponse implements Serializable {
 
 	public APIResponse() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public static APIResponse build(Integer code, String message) {
 		return new APIResponse(code, message, null);
 	}
 
-	public APIResponse(Integer code, String message, Object object) {
+	public APIResponse(Integer code, String message, Object object ) {
 		this.code = code;
 		this.message = message;
 		this.object = object;
@@ -51,6 +59,13 @@ public class APIResponse implements Serializable {
 		this.code = 200;
 		this.message = "OK";
 		this.object = obj;
+	}
+	
+	public APIResponse(Object obj , Integer totalpage) {
+		this.code = 200;
+		this.message = "OK";
+		this.object = obj;
+		this.totalpage = totalpage;
 	}
 
 	public Integer getCode() {
@@ -76,6 +91,14 @@ public class APIResponse implements Serializable {
 
 	public void setObject(Object object) {
 		this.object = object;
+	}
+
+	public Integer getTotalpage() {
+		return totalpage;
+	}
+
+	public void setTotalpage(Integer totalpage) {
+		this.totalpage = totalpage;
 	}
 
 

@@ -1,11 +1,5 @@
 package com.bootproject.sklweb.entity;
 
-
-/**
- * @Description 产品类别 fatherid : 0 表示 首级分类
- * @author  uu04418
- * @date  2019年12月18日  上午10:13:04
- */
 public class Category {
     /** 产品类别id*/
     private Long id;

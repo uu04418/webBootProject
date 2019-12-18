@@ -2,11 +2,6 @@ package com.bootproject.sklweb.entity;
 
 import java.util.Date;
 
-/**
- * @Description 意见反馈
- * @author  uu04418
- * @date  2019年12月18日  上午10:15:01
- */
 public class Sugges {
     /** 意见反馈主键*/
     private Long id;

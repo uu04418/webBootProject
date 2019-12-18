@@ -3,7 +3,7 @@
 <mapper namespace="com.bootproject.sklweb.mapper.ProductMapper" >
   <resultMap id="BaseResultMap" type="com.bootproject.sklweb.entity.Product" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="userid" property="userid" jdbcType="BIGINT" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
     <result column="categoryid" property="categoryid" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="height" property="height" jdbcType="DOUBLE" />
@@ -114,7 +114,7 @@
       pictures, content, sceneid, 
       state, createtime, updatetime, 
       istop)
-    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{categoryid,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=VARCHAR}, #{categoryid,jdbcType=BIGINT}, 
       #{name,jdbcType=VARCHAR}, #{height,jdbcType=DOUBLE}, #{width,jdbcType=DOUBLE}, 
       #{pictures,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{sceneid,jdbcType=VARCHAR}, 
       #{state,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
@@ -168,7 +168,7 @@
         #{id,jdbcType=BIGINT},
       </if>
       <if test="userid != null" >
-        #{userid,jdbcType=BIGINT},
+        #{userid,jdbcType=VARCHAR},
       </if>
       <if test="categoryid != null" >
         #{categoryid,jdbcType=BIGINT},
@@ -218,7 +218,7 @@
         id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.userid != null" >
-        userid = #{record.userid,jdbcType=BIGINT},
+        userid = #{record.userid,jdbcType=VARCHAR},
       </if>
       <if test="record.categoryid != null" >
         categoryid = #{record.categoryid,jdbcType=BIGINT},
@@ -261,7 +261,7 @@
   <update id="updateByExample" parameterType="map" >
     update product
     set id = #{record.id,jdbcType=BIGINT},
-      userid = #{record.userid,jdbcType=BIGINT},
+      userid = #{record.userid,jdbcType=VARCHAR},
       categoryid = #{record.categoryid,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       height = #{record.height,jdbcType=DOUBLE},
@@ -281,7 +281,7 @@
     update product
     <set >
       <if test="userid != null" >
-        userid = #{userid,jdbcType=BIGINT},
+        userid = #{userid,jdbcType=VARCHAR},
       </if>
       <if test="categoryid != null" >
         categoryid = #{categoryid,jdbcType=BIGINT},
@@ -321,7 +321,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.bootproject.sklweb.entity.Product" >
     update product
-    set userid = #{userid,jdbcType=BIGINT},
+    set userid = #{userid,jdbcType=VARCHAR},
       categoryid = #{categoryid,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       height = #{height,jdbcType=DOUBLE},

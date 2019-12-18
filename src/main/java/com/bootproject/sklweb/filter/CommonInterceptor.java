@@ -2,10 +2,14 @@ package com.bootproject.sklweb.filter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bootproject.sklweb.common.CheckDataUtil;
+import com.bootproject.sklweb.entity.User;
+import com.bootproject.sklweb.service.UserService;
+import com.bootproject.sklweb.service.impl.UserServiceImpl;
 
 
 /**
@@ -14,6 +18,11 @@ import com.bootproject.sklweb.common.CheckDataUtil;
  * @date  2019年8月5日  上午9:34:31
  */
 public class CommonInterceptor implements HandlerInterceptor {
+	
+	@Autowired
+	UserService userService;
+	
+	 
 	
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -25,26 +34,34 @@ public class CommonInterceptor implements HandlerInterceptor {
 		**/
 		String currentUrl = request.getRequestURI();
 		String  acctoken = (String)request.getHeader("Authorization");
-		if (currentUrl.contains("belogin") 
-				||  currentUrl.contains("supporter")
+		if (   currentUrl.contains("supporter")
 				|| currentUrl.contains("admin")) {
 			//acctoken不能为空
-			if (CheckDataUtil.checkisEmpty(acctoken))  throw new  AcctokenNotExistException() ;
+			if (CheckDataUtil.checkisEmpty(acctoken))  
+				throw new  AcctokenNotExistException() ;
+			
+			User user = userService.getUserByToken(acctoken) ;
+			
 			
 			//通过acctoen获取用户信息 用户信息必须存在
-			//if (CheckDataUtil.checkisEmpty(user))  throw new  UserNotExistException() ;
+			if (CheckDataUtil.checkisEmpty(user))  
+				throw new  UserNotExistException() ;
 			
 			//账号被冻结
-			//if (user.getState() != 1)  throw new  UserFrozenException() ;
+			if ( CheckDataUtil.checkNotEqual("0", user.getState()))  
+				throw new  UserFrozenException() ;
 			
 			//如果带有管理员
-			/*if(currentUrl.contains("admin") || currentUrl.contains("supporter")) {
+			if(currentUrl.contains("admin") || currentUrl.contains("supporter")) {
 				//非后台账户
-				if(user.getType() == 0)    throw new  SupporterNotAllowException() ;
+				if (CheckDataUtil.checkNotEqual("1", user.getType())
+						&&  CheckDataUtil.checkNotEqual("0", user.getType()))   
+					throw new  SupporterNotAllowException() ;
 				//需要管理员权限
-				if (currentUrl.contains("admin") && user.getType() != 2  ) 
+				if (currentUrl.contains("admin") 
+						&&  CheckDataUtil.checkNotEqual("0", user.getType()) ) 
 					throw new  AdminUserAllowException() ;
-			}*/
+			}
 			
 			return true ;
 			

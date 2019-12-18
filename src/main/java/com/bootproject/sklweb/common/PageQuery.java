@@ -43,21 +43,11 @@ public class PageQuery implements Serializable {
 		this.cadence = cadence;
 	}
 
-	/**
-	 * 将分布参数传入处理，最终计算出当前页码PageQuery_currPage，开始坐标PageQuery_star，
-	 * 结束坐标PageQuery_end，总页数PageQuery_Psize
-	 * 
-	 * @param infoCount
-	 *            记录总数
-	 * @param pageSize
-	 *            每页显示个数
-	 * @param currPage
-	 *            当前页码
-	 */
-	public void setPageParams(int infoCount, int pagesize, int currPage) {
+ 
+	public void setPageParams(int infoCount, int pagesize, int curret) {
 		this.totalcount = infoCount;
 		this.pagesize = pagesize;
-		this.currentpage = currPage;
+		this.currentpage = curret;
 
 		float Psize_l = infoCount / (float) (this.pagesize);
 		if (currentpage < 2) {
@@ -76,22 +66,6 @@ public class PageQuery implements Serializable {
 			pagestart = (currentpage - 1) * this.pagesize;
 		}
 		totalpage = (int) Math.ceil(Psize_l);
-		
-		//每一个分页7条
-		Integer seven = 7;
-		Integer yushu = currentpage % seven; 
-		if (yushu >0) {
-			for (int i=currentpage+1-yushu;i<=currentpage+7-yushu &&i<=totalpage;i++) {
-				this.cadence.add(i);
-			}
-		}else {
-			for (int i = currentpage-6;i< currentpage+1;i++) {
-				this.cadence.add(i);
-			}
-			
-		}
-		
-		
 		this.pageend = currentpage * this.pagesize;
 	}
 

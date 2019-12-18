@@ -2,15 +2,9 @@ package com.bootproject.sklweb.entity;
 
 import java.util.Date;
 
-
-/**
- * @Description 后台账户管理 userid : 登陆账户   | 此块操作针对管理员开发
- * @author  uu04418
- * @date  2019年12月18日  上午10:15:14
- */
 public class User {
     /** 用户主键*/
-    private Long userid;
+    private String userid;
 
     /** 登陆密码*/
     private String password;
@@ -27,12 +21,12 @@ public class User {
     /** 用户创建时间*/
     private Date createtime;
 
-    public Long getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
+    public void setUserid(String userid) {
+        this.userid = userid == null ? null : userid.trim();
     }
 
     public String getPassword() {
