@@ -12,6 +12,9 @@ import com.bootproject.sklweb.common.HandleData;
 import com.bootproject.sklweb.common.PageQuery;
 import com.bootproject.sklweb.entity.User;
 import com.bootproject.sklweb.entity.UserExample;
+import com.bootproject.sklweb.filter.SupporterNotAllowException;
+import com.bootproject.sklweb.filter.UserFrozenException;
+import com.bootproject.sklweb.filter.UserNotExistException;
 import com.bootproject.sklweb.mapper.MyCustomerMapper;
 import com.bootproject.sklweb.mapper.UserMapper;
 import com.bootproject.sklweb.service.UserService;
@@ -24,6 +27,8 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	MyCustomerMapper myCustomerMapper;
+	
+	
 	@Override
 	public APIResponse addOrUpdateUser(User user) {
 		
@@ -59,11 +64,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public User getUserByToken(String acctoken) {
-		
-		
 		if (CheckDataUtil.checkisEmpty(acctoken))
 			return null; 
-		
 		UserExample example = new UserExample();
 		UserExample.Criteria criteria = example.createCriteria();
 		criteria.andAcctokenEqualTo(acctoken);
@@ -94,16 +96,16 @@ public class UserServiceImpl implements UserService{
 		
 		User user = userMapper.selectByPrimaryKey(userid);
 		
-		if (CheckDataUtil.checkisEmpty(user)) {
-			return APIResponse.build(400, "改用户不存在") ;
-		}
+		if (CheckDataUtil.checkisEmpty(user)) 
+			throw new UserNotExistException() ;
+		
 		
 		if (CheckDataUtil.checkNotEqual("0", user.getType())
 				&& CheckDataUtil.checkNotEqual("1", user.getType()))
-			return APIResponse.build(400, "非后台账户") ;
+			throw new SupporterNotAllowException();
 		
 		if(CheckDataUtil.checkNotEqual("0", user.getState()))
-			return APIResponse.build(400, "用户冻结或移除") ;
+			throw new UserFrozenException(); 
 		
 		password = HandleData.digestMD5Word(password);
 		
@@ -111,6 +113,23 @@ public class UserServiceImpl implements UserService{
 			return APIResponse.build(400, "密码错误") ;
 		
 		return APIResponse.offResult(user);
+	}
+
+	@Override
+	public APIResponse changepass(String userid, String password) {
+		
+		if (CheckDataUtil.checkisEmpty(password))
+			return APIResponse.build(400, "请输入密码");
+		
+		User user = new User();
+		user.setUserid(userid);
+		
+		password = HandleData.digestMD5Word(password);
+		user.setPassword(password);
+		
+		userMapper.updateByPrimaryKeySelective(user);
+		
+		return APIResponse.offResult();
 	}
 
 }

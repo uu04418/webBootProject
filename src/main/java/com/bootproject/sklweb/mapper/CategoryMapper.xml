@@ -2,11 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bootproject.sklweb.mapper.CategoryMapper" >
   <resultMap id="BaseResultMap" type="com.bootproject.sklweb.entity.Category" >
-    <result column="id" property="id" jdbcType="BIGINT" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="pictures" property="pictures" jdbcType="VARCHAR" />
-    <result column="fatherid" property="fatherid" jdbcType="BIGINT" />
+    <result column="fatherid" property="fatherid" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, pictures, fatherid, content
+    id, name, pictures, fatherid, content, state
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bootproject.sklweb.entity.CategoryExample" >
     select
@@ -83,6 +84,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from category
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from category
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
   <delete id="deleteByExample" parameterType="com.bootproject.sklweb.entity.CategoryExample" >
     delete from category
     <if test="_parameter != null" >
@@ -91,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.bootproject.sklweb.entity.Category" >
     insert into category (id, name, pictures, 
-      fatherid, content)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{pictures,jdbcType=VARCHAR}, 
-      #{fatherid,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR})
+      fatherid, content, state
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{pictures,jdbcType=VARCHAR}, 
+      #{fatherid,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.bootproject.sklweb.entity.Category" >
     insert into category
@@ -113,10 +126,13 @@
       <if test="content != null" >
         content,
       </if>
+      <if test="state != null" >
+        state,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=BIGINT},
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -125,10 +141,13 @@
         #{pictures,jdbcType=VARCHAR},
       </if>
       <if test="fatherid != null" >
-        #{fatherid,jdbcType=BIGINT},
+        #{fatherid,jdbcType=VARCHAR},
       </if>
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -142,7 +161,7 @@
     update category
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=BIGINT},
+        id = #{record.id,jdbcType=VARCHAR},
       </if>
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
@@ -151,10 +170,13 @@
         pictures = #{record.pictures,jdbcType=VARCHAR},
       </if>
       <if test="record.fatherid != null" >
-        fatherid = #{record.fatherid,jdbcType=BIGINT},
+        fatherid = #{record.fatherid,jdbcType=VARCHAR},
       </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -163,13 +185,44 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update category
-    set id = #{record.id,jdbcType=BIGINT},
+    set id = #{record.id,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       pictures = #{record.pictures,jdbcType=VARCHAR},
-      fatherid = #{record.fatherid,jdbcType=BIGINT},
-      content = #{record.content,jdbcType=VARCHAR}
+      fatherid = #{record.fatherid,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bootproject.sklweb.entity.Category" >
+    update category
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pictures != null" >
+        pictures = #{pictures,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherid != null" >
+        fatherid = #{fatherid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bootproject.sklweb.entity.Category" >
+    update category
+    set name = #{name,jdbcType=VARCHAR},
+      pictures = #{pictures,jdbcType=VARCHAR},
+      fatherid = #{fatherid,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

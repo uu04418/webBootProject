@@ -22,9 +22,6 @@ public class CommonInterceptor implements HandlerInterceptor {
 	@Autowired
 	UserService userService;
 	
-	 
-	
-
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		/***

@@ -20,6 +20,37 @@
 			limit #{query.pagestart} , #{query.pagesize}
 		</if>
   	</select>
-  
+  	
+  	
+  	<select id="getLastSceneId" resultType="integer">
+  			SELECT MAX(scene.id) + 1  from scene
+  	</select>
+  	
+  	
+   
+  	
+  		
+  	<select id="getCategoryIdByFahter" resultType="integer">
+  			SELECT MAX(id ) + 1    from category where fatherid =  #{fatherid}
+  	</select>
+  	
+  	
+  	<select id="suggeslistCount" resultType="integer">
+  			SELECT COUNT(1) from sugges
+  	</select>
+  	
+  	<select id="suggeslist" resultType="com.bootproject.sklweb.entity.Sugges">
+  		SELECT  *  from sugges
+			ORDER BY sugges.createtime desc 
+  		<if test="query !=null ">
+			limit #{query.pagestart} , #{query.pagesize}
+		</if>
+  	</select>
+  	
+  	
+  	
+  	<select id="getNextProductId" resultType="long">
+  			SELECT  IFNULL( MAX(id) +  1 ,1000000) from product
+  	</select>
   
 </mapper>

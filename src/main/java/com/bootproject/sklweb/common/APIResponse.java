@@ -57,13 +57,13 @@ public class APIResponse implements Serializable {
 
 	public APIResponse(Object obj) {
 		this.code = 200;
-		this.message = "OK";
+		this.message = "操作成功";
 		this.object = obj;
 	}
 	
 	public APIResponse(Object obj , Integer totalpage) {
 		this.code = 200;
-		this.message = "OK";
+		this.message = "操作成功";
 		this.object = obj;
 		this.totalpage = totalpage;
 	}

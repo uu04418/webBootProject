@@ -49,4 +49,6 @@ public interface UserService {
 	 */
 	APIResponse userLogin(String userid, String password);
 
+	APIResponse changepass(String userid, String password);
+
 }

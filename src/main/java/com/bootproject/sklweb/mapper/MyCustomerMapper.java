@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.bootproject.sklweb.common.PageQuery;
+import com.bootproject.sklweb.entity.Sugges;
 import com.bootproject.sklweb.entity.User;
 
 public interface MyCustomerMapper {
@@ -17,5 +18,17 @@ public interface MyCustomerMapper {
 	**@return		
 	 */
 	List<User> getUserList(@Param("query") PageQuery query);
+	
 	int getUserListCount();
+	
+	Integer getLastSceneId();
+
+
+	Integer getCategoryIdByFahter(String fatherid);
+
+	Integer suggeslistCount();
+
+	List<Sugges> suggeslist();
+
+	Long getNextProductId();
 }

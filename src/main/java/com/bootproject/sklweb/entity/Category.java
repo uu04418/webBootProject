@@ -2,7 +2,7 @@ package com.bootproject.sklweb.entity;
 
 public class Category {
     /** 产品类别id*/
-    private Long id;
+    private String id;
 
     /** 产品类别名称*/
     private String name;
@@ -11,17 +11,20 @@ public class Category {
     private String pictures;
 
     /** 产品类别上级id*/
-    private Long fatherid;
+    private String fatherid;
 
     /** 类别描述*/
     private String content;
 
-    public Long getId() {
+    /** 0-正常 1-下架*/
+    private String state;
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getName() {
@@ -40,12 +43,12 @@ public class Category {
         this.pictures = pictures == null ? null : pictures.trim();
     }
 
-    public Long getFatherid() {
+    public String getFatherid() {
         return fatherid;
     }
 
-    public void setFatherid(Long fatherid) {
-        this.fatherid = fatherid;
+    public void setFatherid(String fatherid) {
+        this.fatherid = fatherid == null ? null : fatherid.trim();
     }
 
     public String getContent() {
@@ -54,5 +57,13 @@ public class Category {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state == null ? null : state.trim();
     }
 }
